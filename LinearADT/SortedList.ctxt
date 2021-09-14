@@ -1,0 +1,4 @@
+#BlueJ class context
+comment0.target=SortedList
+comment0.text=\n\ class\ SortedStringList\ should\ create\ a\ sequential\n\ list\ built\ from\ a\ primitive\ array\ that\ maintains\ \n\ alphabetically\ sorted\ Strings.\n\ \n\ Realize\ the\ ListInterface\ interface\n\ Supply\ a\ single\ constructor\ that\ creates\ an\ empty\ list.\n\ throw\ an\ UnsupportedOperation\ exception\ for\ methods\ that\ can\n\ not\ be\ supported\ by\ this\ type\ of\ list.\n\ Supply\ a\ toString\ that\ shows\ the\ list\ from\ element\ 0\ to\ size()\n\ \n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+numComments=1

@@ -1,0 +1,4 @@
+#BlueJ class context
+comment0.target=MyDoubleList
+comment0.text=\n\ class\ MyDoubleList\ realizes\ the\ ListInterface\n\ \n\ It\ should\ implement\ all\ methods\ and\ meet\ the\ following\ \n\ big-O\ stipulation\n\ \n\ -\ add\ (Object\ element),\ aims\ for\ O(1)\ behavior\n\ \ \ \ \ adds\ at\ the\ end\ of\ the\ list,\ doubling\n\ \ \ \ \ \ \ \ \ \ the\ size\ of\ the\ array\ when\ capacity\ is\ reached\n\ Supply\ a\ constructor\ with\ no\ arguments\ that\ creates\ an\ empty\ list\n\ \ \ \ (but\ starts\ with\ an\ array\ of\ size\ 4)\n\ Add\ a\ toString\ that\ shows\ the\ elements\ from\ 0\ to\ size()\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+numComments=1

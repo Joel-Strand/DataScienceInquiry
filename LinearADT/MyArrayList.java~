@@ -1,0 +1,43 @@
+
+/**
+ * class MyDoubleList realizes the ListInterface
+ * 
+ * It should implement all methods and meet the following 
+ * big-O stipulation
+ * 
+ * - add (Object element), aims for O(1) behavior
+ *     adds at the end of the list, doubling
+ *          the size of the array when capacity is reached
+ * Supply a constructor with no arguments that creates an empty list
+ *    (but starts with an array of size 4)
+ * Add a toString that shows the elements from 0 to size()
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class MyArrayList
+{
+    // instance variables - replace the example below with your own
+    private int x;
+
+    /**
+     * Constructor for objects of class MyArrayList
+     */
+    public MyArrayList()
+    {
+        // initialise instance variables
+        x = 0;
+    }
+
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    public int sampleMethod(int y)
+    {
+        // put your code here
+        return x + y;
+    }
+}
