@@ -36,7 +36,7 @@ public class SortedList implements ListInterface {
 
         // If array expansion is needed
         if (stringArr.length == numElements) {
-            stringArr = resizeArray(stringArr, numElements * 2);
+            stringArr = expandArray(stringArr, numElements * 2);
         }
 
         // Add Item
@@ -71,6 +71,7 @@ public class SortedList implements ListInterface {
             remove(i);
         }
         numElements = 0;
+        stringArr = shrinkArray(stringArr, 1);
     }
 
     @Override
@@ -139,6 +140,9 @@ public class SortedList implements ListInterface {
                 stringArr[i] = stringArr[i+1];
             }
             numElements--;
+            if (numElements <= stringArr.length / 2) {
+                stringArr = shrinkArray(stringArr, stringArr.length / 2);
+            }
             return true;
         }
         return false;
@@ -178,14 +182,14 @@ public class SortedList implements ListInterface {
             String temp = stringArr[i];
             if (i == numElements -1) {
                 result = result + temp;
-            }else {
+            } else {
                 result = result + temp + ',';
             }
         }
         return result + "]";
     }
 
-    private static String[] resizeArray(String[] oldArray, int newSize) {
+    private static String[] expandArray(String[] oldArray, int newSize) {
         String[] tempArr = new String[newSize];
         for (int i = 0; i < oldArray.length; i++) {
             String temp = oldArray[i];
@@ -195,7 +199,12 @@ public class SortedList implements ListInterface {
     }
 
     private static String[] shrinkArray(String[] oldArray, int newSize) {
-        // Figure out how to downsize old array
-        return null;
+        String[] tempArr = new String[newSize];
+        if (newSize > 1) {
+            for (int i = 0; i < newSize; i++) {
+                tempArr[i] = oldArray[i];
+            }
+        }
+        return tempArr;
     }
 }
