@@ -1,21 +1,10 @@
 package gfa.inquiry_SortedList;
 
 /**
- * class SortedStringList should create a sequential
- * list built from a primitive array that maintains 
- * alphabetically sorted Strings.
- * 
- * Realize the ListInterface interface
- * Supply a single constructor that creates an empty list.
- * throw an UnsupportedOperation exception for methods that can
- * not be supported by this type of list.
- * Supply a toString that shows the list from element 0 to size()
-
  * @author Joel Strand
  * @version 1.0.1
  * @date 9/13/2021
  */
-// opt + enter for test class.
 
 public class SortedList implements ListInterface {
 
@@ -78,11 +67,10 @@ public class SortedList implements ListInterface {
 
     @Override
     public void clear() {
-
         for (int i = 0; i < numElements; i++) {
             remove(i);
         }
-        numElements = 0;                                    // Reset numElements.
+        numElements = 0;
     }
 
     @Override
@@ -156,7 +144,6 @@ public class SortedList implements ListInterface {
         return false;
     }
 
-    // Why return the object if its been removed?
     @Override
     public Object remove(int var1) {
         if (var1 > numElements - 1 || var1 < 0) {
@@ -181,8 +168,7 @@ public class SortedList implements ListInterface {
 
     @Override
     public int size() {
-//        return this.numElements;
-        return this.stringArr.length;
+        return this.numElements;
     }
 
     @Override
