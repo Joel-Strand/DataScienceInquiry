@@ -2,7 +2,7 @@ package gfa.inquiry_SortedList;
 
 /**
  * @author Joel Strand
- * @version 1.0.1
+ * @version 1.0.2
  * @date 9/13/2021
  */
 
