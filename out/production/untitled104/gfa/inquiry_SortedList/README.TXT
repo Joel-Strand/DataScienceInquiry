@@ -9,7 +9,7 @@ inquiry_SortedList Package:
         - Dynamic Space Allocation
         - Autonomous String Sorting
         - Safe Deletions
-        - All methods are O(n) complexity (Exception: .add())
+        - All methods are either of O(n) or O(1) complexity (Exception: .add())
             - .add() requires more complex sorting logic
                 - Current Time Complexity:
                     - Worst-Case Time Complexity

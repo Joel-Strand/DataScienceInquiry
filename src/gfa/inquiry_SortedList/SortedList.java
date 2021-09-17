@@ -12,6 +12,7 @@ public class SortedList implements ListInterface {
     private int numElements;
 
 
+    // Constructor
     public SortedList() {
         // Creates Empty Array with a length of 1
         this.stringArr = new String[1];
@@ -183,7 +184,7 @@ public class SortedList implements ListInterface {
             if (i == numElements -1) {
                 result = result + temp;
             } else {
-                result = result + temp + ',';
+                result = result + temp + ", ";
             }
         }
         return result + "]";
