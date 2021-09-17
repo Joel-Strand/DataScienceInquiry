@@ -164,10 +164,18 @@ class SortedListUnitTest {
         sl.add("Chris");
         sl.add("Ingrid");
 
-        sl.clear();
-        int size = sl.size();
-        String s = sl.toString();
+        int sizeBeforeClear = sl.size();
+        String toStringBeforeClear = sl.toString();
 
+        sl.clear();
+
+        int sizeAfterClear = sl.size();
+        String toStringAfterClear = sl.toString();
+
+        assertEquals(12, sizeBeforeClear);
+        assertEquals("[12345, 6789, Alice, Ben, Chris, David, Ethan, Fiona, Hammond, Ingrid, Maria, Zeke]", toStringBeforeClear);
+        assertEquals(0, sizeAfterClear);
+        assertEquals("[]", toStringAfterClear);
     }
 
     @org.junit.jupiter.api.Test
@@ -202,7 +210,7 @@ class SortedListUnitTest {
 
     @org.junit.jupiter.api.Test
     void set() {
-
+        // Use try & catch
     }
 
     @org.junit.jupiter.api.Test
