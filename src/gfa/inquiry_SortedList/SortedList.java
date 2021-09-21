@@ -68,9 +68,7 @@ public class SortedList implements ListInterface {
 
     @Override
     public void clear() {
-        for (int i = 0; i < numElements; i++) {
-            remove(i);
-        }
+        stringArr = new String[1];
         numElements = 0;
         stringArr = shrinkArray(stringArr, 1);
     }
@@ -119,29 +117,28 @@ public class SortedList implements ListInterface {
 
     @Override
     public int lastIndexOf(Object var1) {
-        if (!(var1 instanceof Object[])) {
-            throw new IllegalArgumentException("Cannot find lastIndexOf if an array is not passed to method.");
+        if (!(var1 instanceof String)) {
+            throw new IllegalArgumentException("Object supplied needs to be a String");
         }
-        Object[] var1Arr = (Object[]) var1;
-        int finalIndex = 0;
-        for (int i = 0; i < var1Arr.length; i++) {
-            if (var1Arr[i] == null) {
-                finalIndex = i - 1;
-                break;
+
+        for (int i = 0; i < stringArr.length; i++) {
+            Object temp = stringArr[i];
+            if (temp == var1) {
+                return i;
             }
         }
-        return finalIndex;
+        return -1;
     }
 
     @Override
     public boolean remove(Object var1) {
         if (contains(var1)) {
-            // Starts at Index of Object to be Removed. Sets the next object to the current index, effectively removing object.
             for (int i = indexOf(var1); i < stringArr.length - 1; i++) {
-                stringArr[i] = stringArr[i+1];
+                stringArr[i] = stringArr[i + 1];
             }
+
             numElements--;
-            if (numElements <= stringArr.length / 2) {
+            if (numElements < stringArr.length / 2) {
                 stringArr = shrinkArray(stringArr, stringArr.length / 2);
             }
             return true;
@@ -159,7 +156,7 @@ public class SortedList implements ListInterface {
                 stringArr[i] = stringArr[i + 1];
             }
             numElements--;
-            if (numElements <= stringArr.length / 2) {
+            if (numElements < stringArr.length / 2) {
                 stringArr = shrinkArray(stringArr, stringArr.length / 2);
             }
             return objectToReturn;
