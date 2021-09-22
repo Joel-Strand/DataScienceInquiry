@@ -26,7 +26,7 @@ public class SortedList implements ListInterface {
         // If object is not a String
         if (var1 == null) {
             throw new IllegalArgumentException("Strings Only.");
-        } else if (stringArr[0] == null) {
+        } else if (numElements == 0) {
                 stringArr[0] = var1String;
                 numElements++;
                 return true;
@@ -43,7 +43,7 @@ public class SortedList implements ListInterface {
         // Add Item
         stringArr[numElements] = var1String;
         numElements++;
-        String temp = "";
+        String temp;
 
         // Sort the Array
         for (int i = 0; i < stringArr.length - 1; i++) {
