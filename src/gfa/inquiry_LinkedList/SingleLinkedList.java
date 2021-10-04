@@ -1,44 +1,44 @@
 package gfa.inquiry_LinkedList;
 
 /**
- * class SingleLinkedList is
- * a first experiment  working with linked
- * structures - the most simple option is a
- * single link -- also costly! Watch the big-O!
- * 
- * To do: 9/28 week
- * for each method:
- *    - comment on Big O
- *    - implement all methods
- *    - throw appropriate exceptions
- *    - toString should look like ArrayList output
- *      that is [e1, e2,.. en]
- *      
- *    Unit test is coming
+ * SingleLinkedList is an experiment designed to help study linked data
+ * structures. This particular class focuses on a single linear linked
+ * list, organized from left-to-right, in ascending index order.
+ *
+ * The time complexity of the structure can be extremely costly, as
+ * there are multiple checks and cases that must be handled before a
+ * change can be made.
  *
  * @author J. Smith, Joel Strand
- * @version 1.0.1
+ * @version 1.0.2
+ * @date 4th October 2021.
  */
-public class SingleLinkedList implements ListInterface
-{
+
+public class SingleLinkedList implements ListInterface {
+
     private Node front;
     private int numElements;
 
     /**
-     * create an empty list
+     * Creates an empty LinkedList
+     *
+     * Worst Case Time Complexity: Constant Time - O(1)
      */
-    public SingleLinkedList()
-    {
+    public SingleLinkedList() {
         front = null;
         numElements = 0;
     }
 
-    /*
-     * Adds' behavior is to add elements
-     * at the end of the list
+    /**
+     * Adds item to the end of the list.
+     * Allows duplicates of items.
+     * Does not allow null items.
+     *
+     * Worst Case Time Complexity: Constant Time - O(1)
+     *
+     * @param element Object, null
+     * @return true, IllegalArgumentException
      */
-
-    // Allows Duplication
     @Override
     public boolean add(Object element) {
         if (element == null) {
@@ -47,6 +47,7 @@ public class SingleLinkedList implements ListInterface
 
         Node newNode = new Node(element);
 
+        // Handle Empty List Case
         if (numElements == 0) {
             front = new Node(element);
         } else {
@@ -57,7 +58,17 @@ public class SingleLinkedList implements ListInterface
         return true;
     }
 
-    // Allows Duplication
+    /**
+     * Adds item at specified index position.
+     * Allows duplicates of items.
+     * Does not allow null items.
+     *
+     * Worst Case Time Complexity: Linear - O(n)
+     *
+     * @param index (0 <= index < numElements), (index > numElements), (index < 0)
+     * @param element Object
+     * @return true, IllegalArgumentException, IllegalArgumentException
+     */
     @Override
     public boolean add(int index, Object element) {
         if (index > numElements || index < 0) {
@@ -68,7 +79,8 @@ public class SingleLinkedList implements ListInterface
 
         Node ptr = new Node(element);
 
-        // If Index is 0, make front = the new node, then link the new front to the old front.
+        // Handle edge case
+        // front = ptr, ptr points to old front.
         if (index == 0) {
             Node second = this.front;
             this.front = ptr;
@@ -77,38 +89,67 @@ public class SingleLinkedList implements ListInterface
             return true;
         }
 
+        // Find the node before insertion index
         Node before = (Node) get(index - 1);
 
+        // Handle edge case
         if (index == numElements) {
             before.setNext(ptr);
             numElements++;
             return true;
         }
 
+        // Node that will be after the new node's insertion.
         Node after = before.getNext();
 
+        // Link before to new, new to after.
         before.setNext(ptr);
         ptr.setNext(after);
         numElements++;
         return true;
     }
 
+    /**
+     * Removes every object in the list.
+     * List becomes empty.
+     *
+     * Worst Case Time Complexity: Exponential - O(n^3) (yikes)
+     * ^ (get() inside of remove(int index) can be performed twice, leading to the same linear process being performed twice.
+     *
+     */
     @Override
     public void clear() {
-        Node ptr = this.front;
         int counter = 0;
-
+        // Iterate through entire list, remove every object.
         while (counter <= numElements - 1) {
             remove(0);
         }
         numElements = 0;
     }
 
+    /**
+     * Uses indexOf() to determine if the list contains the element.
+     *
+     * Worst Case Time Complexity: Linear - O(n)
+     *
+     * @param element objectInList, objectNotInList, null
+     * @return true, false, IllegalArgumentException
+     */
     @Override
     public boolean contains(Object element) {
+        // Returns a boolean dependent on result of indexOf(element)
         return indexOf(element) != -1;
     }
 
+    /**
+     * Iterates over the list,
+     * Returns the Object when the index position is reached.
+     *
+     * Worst Case Time Complexity: Linear - O(n)
+     *
+     * @param index objectInList, objectNotInList, (index > numElements - 1), (index < 0)
+     * @return Object, null, IllegalArgumentException, IllegalArgumentException
+     */
     @Override
     public Object get(int index) {
         if (index > numElements - 1 || index < 0) {
@@ -118,10 +159,14 @@ public class SingleLinkedList implements ListInterface
         Node ptr = this.front;
         int counter = 0;
 
+        // Iterate over whole list
         while (ptr.getNext() != null) {
             if (counter == index) {
+                // When counter ==  index requested,
+                // return the Object at that index.
                 return ptr;
             } else {
+                // Continue iterating
                 ptr = ptr.getNext();
                 counter++;
             }
@@ -129,46 +174,102 @@ public class SingleLinkedList implements ListInterface
         return ptr;
     }
 
+    /**
+     * Iterates over the list,
+     * Returns the counter (index position) when the Object is found.
+     *
+     * Worst Case Time Complexity: Linear - O(n)
+     *
+     * @param element objectInList, objectNotInList, null
+     * @return counter, -1, IllegalArgumentException
+     */
     @Override
     public int indexOf(Object element) {
+        if (element == null) {
+            throw new IllegalArgumentException("Null elements are not contained in the list.");
+        }
+
         Node ptr = this.front;
         int counter = 0;
 
+        // Iterate over whole list
         while (ptr.getNext() != null) {
             if (ptr.getValue() == element) {
+                // When element is found, return it.
                 return counter;
             } else {
+                // Continue Iterating
                 ptr = ptr.getNext();
                 counter++;
             }
         }
+        // Handle edge != null case
         if (ptr.getValue() == element) {
             return counter;
         } else {
+            // If edge == null
             return -1;
         }
     }
 
+    /**
+     * Returns the total amount of elements in the list minus 1.
+     *
+     * Worst Case Time Complexity: Constant Time - O(1)
+     *
+     * @param element emptyList, listOf100Items, null
+     * @return 0, 99, IllegalArgumentException
+     */
     @Override
     public int lastIndexOf(Object element) {
+        if (element == null) {
+            throw new IllegalArgumentException("Cannot find last index of a null element.");
+        }
+
+        // Handle empty list case
+        if (numElements == 0) {
+            return 0;
+        }
         return numElements - 1;
     }
 
+    /**
+     * Calls back to remove(int index)
+     * ^ for overall simplicity
+     *
+     * Worst Case Time Complexity: Quadratic - O(n^2)
+     * ^ (get() inside of remove(int index) can be performed twice, leading to the same linear process being performed twice.
+     *
+     * @param element ObjectInList, ObjectNotInList, null
+     * @return true, false, IllegalArgumentException
+     */
     @Override
     public boolean remove(Object element) {
         if (element == null) {
             throw new IllegalArgumentException("No null objects exist in this list.");
         }
 
+        // Handle element not existing
         if (indexOf(element) == -1) {
             return false;
         }
 
+        // Call to other remove method
         remove(indexOf(element));
         numElements--;
         return true;
     }
 
+    /**
+     * Sequentially deduces where item is in the list
+     * Then sets the previous node to the node after the node that is being removed
+     *
+     * Worst Case Time Complexity: Quadratic - O(n^2)
+     * ^ (get() inside of remove(int index) can be performed twice, leading to the same linear process being performed twice.
+     *
+     * @param index objectInList, objectNotInList, (index > numElements - 1), (index < 0)
+     * @return Object, IllegalArgumentException, IllegalArgumentException, IllegalArgumentException
+     */
     @Override
     public Object remove(int index) {
         if (index > numElements - 1 || index < 0) {
@@ -177,17 +278,20 @@ public class SingleLinkedList implements ListInterface
 
         Node ptr = (Node) get(index);
 
+        // Handle edge case
         if (index == 0) {
             if (ptr.getNext() == null) {
                 this.front = new Node();
                 numElements--;
                 return ptr;
             }
+
             this.front = ptr.getNext();
             numElements--;
             return ptr;
         }
 
+        // Node before the node that's being removed.
         Node before = (Node) get(index - 1);
 
         if (ptr.getNext() == null) {
@@ -196,13 +300,25 @@ public class SingleLinkedList implements ListInterface
             return ptr;
         }
 
+        // Node after the node that's being removed.
         Node after = (Node) get(index + 1);
 
+        // Link before to after
         before.setNext(after);
         numElements--;
         return ptr;
     }
 
+    /**
+     * Finds Node at provided index, sets the data of the node to Object element.
+     *
+     * Worst Case Time Complexity: Linear - O(n)
+     *
+     * @param index (0 < index < numElements), (index > numElements), (index < 0)
+     * @param element Object, null
+     * @return (1, 1) true, (1, 2) IllegalArgumentException, (2, 1) IllegalArgumentException, (2,2) IllegalArgumentException
+     * (3, 1) IllegalArgumentException, (3, 2) IllegalArgumentException
+     */
     @Override
     public Object set(int index, Object element) {
         if (index > numElements - 1 || index < 0) {
@@ -211,33 +327,64 @@ public class SingleLinkedList implements ListInterface
             throw new IllegalArgumentException("Cannot manually set a null node");
         }
 
+        // Get the node, set its value to element.
         Node ptr = (Node) get(index);
         ptr.setValue(element);
         return ptr;
     }
 
+    /**
+     * Returns the total amount of elements in the list
+     * NullPointer not included.
+     *
+     * Worst Case Time Complexity: Constant - O(1)
+     *
+     * @return numElements
+     */
     @Override
-    public int size () {
+    public int size() {
+        // Return # of elements in the list.
         return this.numElements;
     }
 
+    /**
+     * Prints out the sllToString() method.
+     * ^ for user simplicity.
+     *
+     * Worst Case Time Complexity: Constant - O(1)
+     */
     @Override
     public void print() {
+        // Print the returned value of sllToString()
         System.out.println(sllToString());
     }
 
+    /**
+     * Iterates over the whole LinkedList, concatenating each element to a string
+     * which is then returned after the iteration process.
+     *
+     * Worst Case Time Complexity: Linear - O(n)
+     *
+     * @return "[ele 1, ele 2, ... ele numElements -1]"
+     */
     private String sllToString() {
         Node ptr = this.front;
         String s = "[";
+
+        // Iterate over list
         while (ptr.getNext() != null) {
+            // Concat element to string
             Object temp = ptr.getValue();
             s = s.concat(temp + ", ");
             ptr = ptr.getNext();
         }
+        // Handle edge == null case
         if (ptr.getValue() == null) {
             s = s.concat("]");
             return s;
         }
+
+        // handle edge != null
         s = s.concat(ptr.getValue() + "]");
         return s;
     }
