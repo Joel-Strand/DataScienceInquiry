@@ -10,7 +10,7 @@ package gfa.inquiry_LinkedList;
  * change can be made.
  *
  * @author J. Smith, Joel Strand
- * @version 1.0.6
+ * @version 1.0.7
  * @date 5th October 2021.
  */
 
@@ -41,9 +41,8 @@ public class SingleLinkedList implements ListInterface {
      */
     @Override
     public boolean add(Object element) {
-        if (element == null) {
-            throw new IllegalArgumentException("Cannot manually add a null node");
-        }
+        if (element == null) throw new IllegalArgumentException("Cannot manually add a null node");
+
 
         Node newNode = new Node(element);
 
@@ -71,11 +70,9 @@ public class SingleLinkedList implements ListInterface {
      */
     @Override
     public boolean add(int index, Object element) {
-        if (index > numElements || index < 0) {
-            throw new IllegalArgumentException("Cannot insert at index " + index + ", Out Of Bounds.");
-        } else if (element == null) {
-            throw new IllegalArgumentException("Cannot manually add a null node");
-        }
+        if (index > numElements || index < 0) throw new IllegalArgumentException("Cannot insert at index " + index + ", Out Of Bounds.");
+        if (element == null) throw new IllegalArgumentException("Cannot manually add a null node");
+
 
         Node ptr = new Node(element);
 
@@ -146,24 +143,22 @@ public class SingleLinkedList implements ListInterface {
      */
     @Override
     public Object get(int index) {
-        if (index > numElements - 1 || index < 0) {
-            throw new IndexOutOfBoundsException("Cannot get at index " + index + ", Out Of Bounds.");
-        }
+        if (index > numElements - 1 || index < 0) throw new IndexOutOfBoundsException("Cannot get at index " + index + ", Out Of Bounds.");
+
 
         Node ptr = this.front;
         int counter = 0;
 
         // Iterate over whole list
         while (ptr.getNext() != null) {
+            // When counter ==  index requested,
+            // return the Object at that index.
             if (counter == index) {
-                // When counter ==  index requested,
-                // return the Object at that index.
                 return ptr.getValue();
-            } else {
-                // Continue iterating
-                ptr = ptr.getNext();
-                counter++;
             }
+            // Continue iterating
+            ptr = ptr.getNext();
+            counter++;
         }
         return ptr.getValue();
     }
@@ -179,9 +174,8 @@ public class SingleLinkedList implements ListInterface {
      */
     @Override
     public int indexOf(Object element) {
-        if (element == null) {
-            throw new IllegalArgumentException("Null elements are not contained in the list.");
-        }
+        if (element == null) throw new IllegalArgumentException("Null elements are not contained in the list.");
+
         // Checks first edge.
         if (this.front == null) {
             return -1;
@@ -264,9 +258,7 @@ public class SingleLinkedList implements ListInterface {
      */
     @Override
     public Object remove(int index) {
-        if (index > numElements - 1 || index < 0) {
-            throw new IllegalArgumentException("Cannot remove at index " + index + ", Out Of Bounds.");
-        }
+        if (index > numElements - 1 || index < 0) throw new IllegalArgumentException("Cannot remove at index " + index + ", Out Of Bounds.");
 
         Node ptr = getNode(index);
 
@@ -313,11 +305,8 @@ public class SingleLinkedList implements ListInterface {
      */
     @Override
     public Object set(int index, Object element) {
-        if (index > numElements - 1 || index < 0) {
-            throw new IndexOutOfBoundsException("Cannot insert at index " + index + ", Out Of Bounds.");
-        } else if (element == null) {
-            throw new IllegalArgumentException("Cannot manually set a null node");
-        }
+        if (index > numElements - 1 || index < 0) throw new IndexOutOfBoundsException("Cannot insert at index " + index + ", Out Of Bounds.");
+        if (element == null) throw new IllegalArgumentException("Cannot manually set a null node");
 
         // Get the node, set its value to element.
         Node ptr = getNode(index);
@@ -350,9 +339,8 @@ public class SingleLinkedList implements ListInterface {
     public String toString() {
         Node ptr = this.front;
         String s = "[";
-        if (ptr == null) {
-            return "[]";
-        }
+        if (ptr == null) return "[]";
+
 
         // Iterate over list
         while (ptr.getNext() != null) {
@@ -395,11 +383,10 @@ public class SingleLinkedList implements ListInterface {
                 // When counter ==  index requested,
                 // return the Object at that index.
                 return ptr;
-            } else {
-                // Continue iterating
-                ptr = ptr.getNext();
-                counter++;
             }
+            // Continue iterating
+            ptr = ptr.getNext();
+            counter++;
         }
         return ptr;
     }
