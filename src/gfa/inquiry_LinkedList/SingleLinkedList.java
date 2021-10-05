@@ -10,8 +10,8 @@ package gfa.inquiry_LinkedList;
  * change can be made.
  *
  * @author J. Smith, Joel Strand
- * @version 1.0.2
- * @date 4th October 2021.
+ * @version 1.0.3
+ * @date 5th October 2021.
  */
 
 public class SingleLinkedList implements ListInterface {
@@ -49,9 +49,9 @@ public class SingleLinkedList implements ListInterface {
 
         // Handle Empty List Case
         if (numElements == 0) {
-            front = new Node(element);
+            this.front = new Node(element);
         } else {
-            Node before = (Node) get(lastIndexOf(element));
+            Node before = getNode(numElements - 1);
             before.setNext(newNode);
         }
         numElements++;
@@ -65,7 +65,7 @@ public class SingleLinkedList implements ListInterface {
      *
      * Worst Case Time Complexity: Linear - O(n)
      *
-     * @param index (0 <= index < numElements), (index > numElements), (index < 0)
+     * @param index   (0 <= index < numElements), (index > numElements), (index < 0)
      * @param element Object
      * @return true, IllegalArgumentException, IllegalArgumentException
      */
@@ -90,7 +90,7 @@ public class SingleLinkedList implements ListInterface {
         }
 
         // Find the node before insertion index
-        Node before = (Node) get(index - 1);
+        Node before = getNode(index - 1);
 
         // Handle edge case
         if (index == numElements) {
@@ -115,7 +115,6 @@ public class SingleLinkedList implements ListInterface {
      *
      * Worst Case Time Complexity: Exponential - O(n^3) (yikes)
      * ^ (get() inside of remove(int index) can be performed twice, leading to the same linear process being performed twice.
-     *
      */
     @Override
     public void clear() {
@@ -143,7 +142,7 @@ public class SingleLinkedList implements ListInterface {
 
     /**
      * Iterates over the list,
-     * Returns the Object when the index position is reached.
+     * Returns the data of node found.
      *
      * Worst Case Time Complexity: Linear - O(n)
      *
@@ -153,9 +152,39 @@ public class SingleLinkedList implements ListInterface {
     @Override
     public Object get(int index) {
         if (index > numElements - 1 || index < 0) {
-            throw new IllegalArgumentException("Cannot get at index " + index + ", Out Of Bounds.");
+            throw new IndexOutOfBoundsException("Cannot get at index " + index + ", Out Of Bounds.");
         }
 
+        Node ptr = this.front;
+        int counter = 0;
+
+        // Iterate over whole list
+        while (ptr.getNext() != null) {
+            if (counter == index) {
+                // When counter ==  index requested,
+                // return the Object at that index.
+                return ptr.getValue();
+            } else {
+                // Continue iterating
+                ptr = ptr.getNext();
+                counter++;
+            }
+        }
+        return ptr.getValue();
+    }
+
+    /**
+     * Same process as get(), except this returns the node rather than
+     * the node's data.
+     *
+     * Worst Case Time Complexity: Linear - O(n)
+     *
+     * pre: numElements > 0, 0 <= index < numElements
+     *
+     * @param index objectNotInList, (index > numElements - 1), (index < 0)
+     * @return Object, null, IllegalArgumentException, IllegalArgumentException
+     */
+    private Node getNode(int index) {
         Node ptr = this.front;
         int counter = 0;
 
@@ -188,28 +217,27 @@ public class SingleLinkedList implements ListInterface {
         if (element == null) {
             throw new IllegalArgumentException("Null elements are not contained in the list.");
         }
+        // Checks first edge.
+        if (this.front == null) {
+            return -1;
+        } else if (this.front.getValue().equals(element)) {
+            return 0;
+        }
 
         Node ptr = this.front;
         int counter = 0;
 
-        // Iterate over whole list
         while (ptr.getNext() != null) {
-            if (ptr.getValue() == element) {
-                // When element is found, return it.
+            if (ptr.getValue().equals(element)) {
                 return counter;
-            } else {
-                // Continue Iterating
-                ptr = ptr.getNext();
-                counter++;
             }
+            ptr = ptr.getNext();
+            counter++;
         }
-        // Handle edge != null case
-        if (ptr.getValue() == element) {
+        if (ptr.getValue().equals(element)) {
             return counter;
-        } else {
-            // If edge == null
-            return -1;
         }
+        return -1;
     }
 
     /**
@@ -228,7 +256,7 @@ public class SingleLinkedList implements ListInterface {
 
         // Handle empty list case
         if (numElements == 0) {
-            return 0;
+            return -1;
         }
         return numElements - 1;
     }
@@ -256,7 +284,6 @@ public class SingleLinkedList implements ListInterface {
 
         // Call to other remove method
         remove(indexOf(element));
-        numElements--;
         return true;
     }
 
@@ -276,37 +303,37 @@ public class SingleLinkedList implements ListInterface {
             throw new IllegalArgumentException("Cannot remove at index " + index + ", Out Of Bounds.");
         }
 
-        Node ptr = (Node) get(index);
+        Node ptr = getNode(index);
 
         // Handle edge case
         if (index == 0) {
             if (ptr.getNext() == null) {
-                this.front = new Node();
-                numElements--;
-                return ptr;
+                this.front = null;
+                numElements = 0;
+                return ptr.getValue();
             }
 
             this.front = ptr.getNext();
             numElements--;
-            return ptr;
+            return ptr.getValue();
         }
 
         // Node before the node that's being removed.
-        Node before = (Node) get(index - 1);
+        Node before = getNode(index - 1);
 
         if (ptr.getNext() == null) {
             before.setNext(null);
             numElements--;
-            return ptr;
+            return ptr.getValue();
         }
 
         // Node after the node that's being removed.
-        Node after = (Node) get(index + 1);
+        Node after = getNode(index + 1);
 
         // Link before to after
         before.setNext(after);
         numElements--;
-        return ptr;
+        return ptr.getValue();
     }
 
     /**
@@ -314,7 +341,7 @@ public class SingleLinkedList implements ListInterface {
      *
      * Worst Case Time Complexity: Linear - O(n)
      *
-     * @param index (0 < index < numElements), (index > numElements), (index < 0)
+     * @param index   (0 < index < numElements), (index > numElements), (index < 0)
      * @param element Object, null
      * @return (1, 1) true, (1, 2) IllegalArgumentException, (2, 1) IllegalArgumentException, (2,2) IllegalArgumentException
      * (3, 1) IllegalArgumentException, (3, 2) IllegalArgumentException
@@ -322,15 +349,15 @@ public class SingleLinkedList implements ListInterface {
     @Override
     public Object set(int index, Object element) {
         if (index > numElements - 1 || index < 0) {
-            throw new IllegalArgumentException("Cannot insert at index " + index + ", Out Of Bounds.");
+            throw new IndexOutOfBoundsException("Cannot insert at index " + index + ", Out Of Bounds.");
         } else if (element == null) {
             throw new IllegalArgumentException("Cannot manually set a null node");
         }
 
         // Get the node, set its value to element.
-        Node ptr = (Node) get(index);
+        Node ptr = getNode(index);
         ptr.setValue(element);
-        return ptr;
+        return ptr.getValue();
     }
 
     /**
@@ -348,18 +375,6 @@ public class SingleLinkedList implements ListInterface {
     }
 
     /**
-     * Prints out the sllToString() method.
-     * ^ for user simplicity.
-     *
-     * Worst Case Time Complexity: Constant - O(1)
-     */
-    @Override
-    public void print() {
-        // Print the returned value of sllToString()
-        System.out.println(sllToString());
-    }
-
-    /**
      * Iterates over the whole LinkedList, concatenating each element to a string
      * which is then returned after the iteration process.
      *
@@ -367,9 +382,12 @@ public class SingleLinkedList implements ListInterface {
      *
      * @return "[ele 1, ele 2, ... ele numElements -1]"
      */
-    private String sllToString() {
+    public String toString() {
         Node ptr = this.front;
         String s = "[";
+        if (ptr == null) {
+            return "[]";
+        }
 
         // Iterate over list
         while (ptr.getNext() != null) {

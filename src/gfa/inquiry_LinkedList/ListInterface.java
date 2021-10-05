@@ -23,5 +23,4 @@ public interface ListInterface {
     Object remove(int index);
     Object set(int index, Object element);
     int size();
-    void print();
 }
