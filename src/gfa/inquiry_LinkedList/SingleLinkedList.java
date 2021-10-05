@@ -10,7 +10,7 @@ package gfa.inquiry_LinkedList;
  * change can be made.
  *
  * @author J. Smith, Joel Strand
- * @version 1.0.3
+ * @version 1.0.4
  * @date 5th October 2021.
  */
 
@@ -171,36 +171,6 @@ public class SingleLinkedList implements ListInterface {
             }
         }
         return ptr.getValue();
-    }
-
-    /**
-     * Same process as get(), except this returns the node rather than
-     * the node's data.
-     *
-     * Worst Case Time Complexity: Linear - O(n)
-     *
-     * pre: numElements > 0, 0 <= index < numElements
-     *
-     * @param index objectNotInList, (index > numElements - 1), (index < 0)
-     * @return Object, null, IllegalArgumentException, IllegalArgumentException
-     */
-    private Node getNode(int index) {
-        Node ptr = this.front;
-        int counter = 0;
-
-        // Iterate over whole list
-        while (ptr.getNext() != null) {
-            if (counter == index) {
-                // When counter ==  index requested,
-                // return the Object at that index.
-                return ptr;
-            } else {
-                // Continue iterating
-                ptr = ptr.getNext();
-                counter++;
-            }
-        }
-        return ptr;
     }
 
     /**
@@ -372,6 +342,36 @@ public class SingleLinkedList implements ListInterface {
     public int size() {
         // Return # of elements in the list.
         return this.numElements;
+    }
+
+    /**
+     * Same process as get(), except this returns the node rather than
+     * the node's data.
+     *
+     * Worst Case Time Complexity: Linear - O(n)
+     *
+     * pre: numElements > 0, 0 <= index < numElements
+     *
+     * @param index objectNotInList, (index > numElements - 1), (index < 0)
+     * @return Object, null, IllegalArgumentException, IllegalArgumentException
+     */
+    private Node getNode(int index) {
+        Node ptr = this.front;
+        int counter = 0;
+
+        // Iterate over whole list
+        while (ptr.getNext() != null) {
+            if (counter == index) {
+                // When counter ==  index requested,
+                // return the Object at that index.
+                return ptr;
+            } else {
+                // Continue iterating
+                ptr = ptr.getNext();
+                counter++;
+            }
+        }
+        return ptr;
     }
 
     /**
