@@ -10,7 +10,7 @@ package gfa.inquiry_LinkedList;
  * change can be made.
  *
  * @author J. Smith, Joel Strand
- * @version 1.0.4
+ * @version 1.0.5
  * @date 5th October 2021.
  */
 
@@ -345,36 +345,6 @@ public class SingleLinkedList implements ListInterface {
     }
 
     /**
-     * Same process as get(), except this returns the node rather than
-     * the node's data.
-     *
-     * Worst Case Time Complexity: Linear - O(n)
-     *
-     * pre: numElements > 0, 0 <= index < numElements
-     *
-     * @param index objectNotInList, (index > numElements - 1), (index < 0)
-     * @return Object, null, IllegalArgumentException, IllegalArgumentException
-     */
-    private Node getNode(int index) {
-        Node ptr = this.front;
-        int counter = 0;
-
-        // Iterate over whole list
-        while (ptr.getNext() != null) {
-            if (counter == index) {
-                // When counter ==  index requested,
-                // return the Object at that index.
-                return ptr;
-            } else {
-                // Continue iterating
-                ptr = ptr.getNext();
-                counter++;
-            }
-        }
-        return ptr;
-    }
-
-    /**
      * Iterates over the whole LinkedList, concatenating each element to a string
      * which is then returned after the iteration process.
      *
@@ -405,5 +375,37 @@ public class SingleLinkedList implements ListInterface {
         // handle edge != null
         s = s.concat(ptr.getValue() + "]");
         return s;
+    }
+
+    /**
+     * Helper Method
+     *
+     * Same process as get(), except this returns the node rather than
+     * the node's data.
+     *
+     * Worst Case Time Complexity: Linear - O(n)
+     *
+     * pre: numElements > 0, 0 <= index < numElements
+     *
+     * @param index objectNotInList, (index > numElements - 1), (index < 0)
+     * @return Object, null, IllegalArgumentException, IllegalArgumentException
+     */
+    private Node getNode(int index) {
+        Node ptr = this.front;
+        int counter = 0;
+
+        // Iterate over whole list
+        while (ptr.getNext() != null) {
+            if (counter == index) {
+                // When counter ==  index requested,
+                // return the Object at that index.
+                return ptr;
+            } else {
+                // Continue iterating
+                ptr = ptr.getNext();
+                counter++;
+            }
+        }
+        return ptr;
     }
 }
