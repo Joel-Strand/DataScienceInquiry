@@ -10,7 +10,7 @@ package gfa.inquiry_LinkedList;
  * change can be made.
  *
  * @author J. Smith, Joel Strand
- * @version 1.0.5
+ * @version 1.0.6
  * @date 5th October 2021.
  */
 
@@ -113,16 +113,11 @@ public class SingleLinkedList implements ListInterface {
      * Removes every object in the list.
      * List becomes empty.
      *
-     * Worst Case Time Complexity: Exponential - O(n^3) (yikes)
-     * ^ (get() inside of remove(int index) can be performed twice, leading to the same linear process being performed twice.
+     * Worst Case Time Complexity: Constant - O(1)
      */
     @Override
     public void clear() {
-        int counter = 0;
-        // Iterate through entire list, remove every object.
-        while (counter <= numElements - 1) {
-            remove(0);
-        }
+        this.front = null;
         numElements = 0;
     }
 
