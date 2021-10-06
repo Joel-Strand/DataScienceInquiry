@@ -9,10 +9,11 @@ package gfa.inquiry_LinkedList;
  * @author J. Smith
  * @version Sept. 2021
  */
-public class Node
-{
+public class Node {
+
     private Object data;
     private Node link;
+    private Node previous;
 
     /**
      * Constructor for objects of class Node
@@ -20,31 +21,41 @@ public class Node
     public Node() {
         data = null;
         link = null;
+        previous = null;
     }
     
-    public Node (Object element, Node nextLink) {
+    public Node(Object element, Node nextLink) {
         data = element;
         link = nextLink;
     }
     
-    public Node (Object element) {
+    public Node(Object element) {
         data = element;
         link = null;
+        previous = null;
     }
     
     public Object getValue() {
         return data;
     }
     
-    public Node getNext () {
+    public Node getNext() {
         return link;
     }
-    
+
+    public Node getPrevious() {
+        return previous;
+    }
+
     public void setValue(Object replace) {
         data = replace;
     }
     
     public void setNext(Node next) {
         link = next;
+    }
+
+    public void setPrevious(Node prevLink) {
+        previous = prevLink;
     }
 }

@@ -25,8 +25,8 @@ public class SingleLinkedList implements ListInterface {
      * Worst Case Time Complexity: Constant Time - O(1)
      */
     public SingleLinkedList() {
-        front = null;
-        numElements = 0;
+        this.front = null;
+        this.numElements = 0;
     }
 
     /**
@@ -48,7 +48,7 @@ public class SingleLinkedList implements ListInterface {
 
         // Handle Empty List Case
         if (numElements == 0) {
-            this.front = new Node(element);
+            this.front = newNode;
         } else {
             Node before = getNode(numElements - 1);
             before.setNext(newNode);
@@ -336,6 +336,7 @@ public class SingleLinkedList implements ListInterface {
      *
      * @return "[ele 1, ele 2, ... ele numElements -1]"
      */
+    @Override
     public String toString() {
         Node ptr = this.front;
         String s = "[";
