@@ -8,7 +8,8 @@ package gfa.inquiry.DoubleLinkedList;
  * DoubleLinkedList than it is in a SingleLinkedList.
  *
  * @author Joel Strand
- * @version 1.0.2
+ * @version 1.0.3
+ * @date 8th October 2021
  */
 
 public class DoubleLinkedList implements ListInterface {
@@ -18,6 +19,7 @@ public class DoubleLinkedList implements ListInterface {
 
     /**
      * Class Constructor
+     * Creates an empty Linked List.
      *
      * Worst Case Time Complexity: Constant - O(1)
      */
@@ -27,7 +29,7 @@ public class DoubleLinkedList implements ListInterface {
     }
 
     /**
-     * Adds a new node to the end of the list.
+     * Adds a new node to the end of the Linked List.
      * Allows Duplicates
      *
      * Worst Case Time Complexity: Linear - O(n)
@@ -89,7 +91,7 @@ public class DoubleLinkedList implements ListInterface {
     }
 
     /**
-     * Clears the entire linked list to empty.
+     * Clears the entire Linked List to empty.
      *
      * Worst Case Time Complexity: Constant - 0(1)
      */
@@ -177,7 +179,7 @@ public class DoubleLinkedList implements ListInterface {
     }
 
     /**
-     * Returns the final index of the Linked List.
+     * Returns the final index of a specified Linked List.
      *
      * Worst Case Time Complexity: Constant - O(1)
      *
