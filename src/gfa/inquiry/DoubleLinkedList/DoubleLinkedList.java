@@ -8,7 +8,7 @@ package gfa.inquiry.DoubleLinkedList;
  * DoubleLinkedList than it is in a SingleLinkedList.
  *
  * @author Joel Strand
- * @version 1.0.3
+ * @version 1.0.4
  * @date 8th October 2021
  */
 
@@ -179,18 +179,33 @@ public class DoubleLinkedList implements ListInterface {
     }
 
     /**
-     * Returns the final index of a specified Linked List.
+     * Returns the final index occurrence of an object.
      *
-     * Worst Case Time Complexity: Constant - O(1)
+     * Worst Case Time Complexity: Linear Time - O(n)
      *
      * @param element Object, null
      * @return numElements - 1, IllegalArgumentException
      */
     @Override
     public int lastIndexOf(Object element) {
-        if (element == null) throw new IllegalArgumentException("Element cannot be null");
-        if (numElements == 0) return -1;
-        return numElements - 1;
+        if (element == null) {
+            throw new IllegalArgumentException("Cannot find last index of a null element.");
+        }
+
+        Node ptr = this.front;
+
+        int index = -1;
+        int counter = 0;
+
+        while (counter < numElements) {
+            if (ptr.getValue().equals(element)) {
+                index = counter;
+            }
+            ptr = ptr.getNext();
+            counter ++;
+        }
+
+        return index;
     }
 
     /**

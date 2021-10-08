@@ -1,13 +1,16 @@
 package gfa.inquiry.SingleLinkedList;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The test class Test.
  *
  * @author  Zoma T
- * @version 9/17/21
+ * @version 9/21/21
  */
 public class LinkedTest
 {
@@ -40,12 +43,21 @@ public class LinkedTest
         assertEquals(1, list.size());
     }
     
+     @Test
+    public void length2Test()
+    {
+        SingleLinkedList list = new SingleLinkedList();
+        list.add(9.3);
+        list.add("Hello");
+        assertEquals(2, list.size());
+    }
+    
     @Test
     public void length3Test()
     {
         SingleLinkedList list = new SingleLinkedList();
         list.add(5.5);
-        list.add(6.6);
+        list.add("test");
         list.add(7.7);
         assertEquals(3, list.size());
     }
@@ -54,10 +66,10 @@ public class LinkedTest
     public void length4Test()
     {
         SingleLinkedList list = new SingleLinkedList();
-        list.add(5.5);
+        list.add(4);
         list.add(6.6);
         list.add(7.7);
-        list.add(7.9);
+        list.add("test");
         assertEquals(4, list.size());
     }
     
@@ -66,9 +78,10 @@ public class LinkedTest
     {
         SingleLinkedList list = new SingleLinkedList();
         list.add(5.5);
-        list.add(6.6);
-        list.add(7.7);
-        list.add(7.9);
+        list.add(4);
+        list.add("string");
+        int[] array = new int[]{4,5,6};
+        list.add(array);
         list.add(8.0);
         assertEquals(5, list.size());
     }
@@ -94,6 +107,7 @@ public class LinkedTest
         SingleLinkedList list = new SingleLinkedList();
         list.add(6.6);
         list.add(5.5);
+        assertEquals(0, list.indexOf(6.6));
         assertEquals(1, list.indexOf(5.5));
     }
     
@@ -104,8 +118,11 @@ public class LinkedTest
         list.add(6.6);
         list.add(5.5);
         list.add(7.7);
-        list.add(5.5);
+        list.add("test");
+        assertEquals(0, list.indexOf(6.6));
         assertEquals(1, list.indexOf(5.5));
+        assertEquals(2, list.indexOf(7.7));
+        assertEquals(3, list.indexOf("test"));
     }
 
     @Test
@@ -131,6 +148,24 @@ public class LinkedTest
         list.add(5.5);
         assertEquals(1, list.lastIndexOf(5.5));
     }
+    
+    @Test
+    public void lastIndexOf2AgainTest()
+    {
+        SingleLinkedList list = new SingleLinkedList();
+        list.add(5.5);
+        list.add(5.5);
+        assertEquals(1, list.lastIndexOf(5.5));
+    }
+    
+    @Test
+    public void lastIndexOf2AgainAgainTest()
+    {
+        SingleLinkedList list = new SingleLinkedList();
+        list.add(5.5);
+        list.add(6.6);
+        assertEquals(0, list.lastIndexOf(5.5));
+    }
 
     @Test
     public void lastIndexOfEndTest()
@@ -138,9 +173,24 @@ public class LinkedTest
         SingleLinkedList list = new SingleLinkedList();
         list.add(5.5);
         list.add(6.6);
-        list.add(7.7);
         list.add(5.5);
-        assertEquals(3, list.lastIndexOf(5.5));
+        list.add(7.7);
+        assertEquals(2, list.lastIndexOf(5.5));
+    }
+    
+    @Test
+    public void lastIndexOfEpicTest()
+    {
+        SingleLinkedList list = new SingleLinkedList();
+        list.add(5.5);
+        list.add(6.6);
+        list.add(5.5);
+        list.add(7.7);
+        assertEquals(2, list.lastIndexOf(5.5));
+        assertEquals(1, list.lastIndexOf(6.6));
+        list.remove(7.7);
+        assertEquals(-1, list.lastIndexOf(7.7));
+        assertEquals(1, list.lastIndexOf(6.6));
     }
 
     @Test
@@ -402,7 +452,7 @@ public class LinkedTest
         try {
             list.remove(5);
         }
-        catch (IllegalArgumentException exc) {
+        catch (IndexOutOfBoundsException exc) {
             success = true;
         }
         
@@ -417,7 +467,7 @@ public class LinkedTest
         try {
             list.remove(0);
         }
-        catch (IllegalArgumentException exc) {
+        catch (IndexOutOfBoundsException exc) {
             success = true;
         }
         
@@ -482,7 +532,7 @@ public class LinkedTest
         SingleLinkedList list = new SingleLinkedList();
         list.add(5.5);
         Object removed = list.set(0, 5.6);
-        assertEquals(5.6, removed);
+        assertEquals(5.5, removed);
         assertEquals(1, list.size());
         assertEquals("[5.6]", list.toString());
     }
@@ -496,7 +546,7 @@ public class LinkedTest
         list.add(5.6);
         list.add(5.7);
         Object removed = list.set(1, 5.6);
-        assertEquals(5.6, removed);
+        assertEquals(5.5, removed);
         assertEquals(4, list.size());
         assertEquals("[5.4, 5.6, 5.6, 5.7]", list.toString());
     }
@@ -519,6 +569,11 @@ public class LinkedTest
         }
         //System.out.println("finished setting");
         
+        for (int i=0; i<list.size(); i*=3) {
+            list.remove(i);
+            myArray1.remove(i);
+        }
+        
         boolean success = true;
         for (int i=0; i<list.size(); i++) {
             if (!list.get(i).equals(myArray1.get(i))) {
@@ -532,3 +587,11 @@ public class LinkedTest
         assertEquals(true, success);
     }
 }
+
+
+
+
+
+
+
+

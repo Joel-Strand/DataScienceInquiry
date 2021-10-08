@@ -4,13 +4,13 @@ package gfa.inquiry.SingleLinkedList;
  * SingleLinkedList is an experiment designed to help study linked data
  * structures. This particular class focuses on a single linear linked
  * list, organized from left-to-right, in ascending index order.
- *
+ * <p>
  * The time complexity of the structure can be extremely costly, as
  * there are multiple checks and cases that must be handled before a
  * change can be made.
  *
  * @author J. Smith, Joel Strand
- * @version 1.0.7
+ * @version 1.0.8
  * @date 5th October 2021.
  */
 
@@ -70,7 +70,8 @@ public class SingleLinkedList implements ListInterface {
      */
     @Override
     public boolean add(int index, Object element) {
-        if (index > numElements || index < 0) throw new IllegalArgumentException("Cannot insert at index " + index + ", Out Of Bounds.");
+        if (index > numElements || index < 0)
+            throw new IllegalArgumentException("Cannot insert at index " + index + ", Out Of Bounds.");
         if (element == null) throw new IllegalArgumentException("Cannot manually add a null node");
 
 
@@ -120,7 +121,7 @@ public class SingleLinkedList implements ListInterface {
 
     /**
      * Uses indexOf() to determine if the list contains the element.
-     *
+     * <p>
      * Worst Case Time Complexity: Linear - O(n)
      *
      * @param element objectInList, objectNotInList, null
@@ -143,7 +144,8 @@ public class SingleLinkedList implements ListInterface {
      */
     @Override
     public Object get(int index) {
-        if (index > numElements - 1 || index < 0) throw new IndexOutOfBoundsException("Cannot get at index " + index + ", Out Of Bounds.");
+        if (index > numElements - 1 || index < 0)
+            throw new IndexOutOfBoundsException("Cannot get at index " + index + ", Out Of Bounds.");
 
 
         Node ptr = this.front;
@@ -200,9 +202,9 @@ public class SingleLinkedList implements ListInterface {
     }
 
     /**
-     * Returns the total amount of elements in the list minus 1.
+     * Returns the final index occurrence of an object.
      *
-     * Worst Case Time Complexity: Constant Time - O(1)
+     * Worst Case Time Complexity: Linear Time - O(n)
      *
      * @param element emptyList, listOf100Items, null
      * @return 0, 99, IllegalArgumentException
@@ -212,18 +214,28 @@ public class SingleLinkedList implements ListInterface {
         if (element == null) {
             throw new IllegalArgumentException("Cannot find last index of a null element.");
         }
-        // Handle empty list case
-        if (numElements == 0) {
-            return -1;
+
+        Node ptr = this.front;
+
+        int index = -1;
+        int counter = 0;
+
+        while (counter < numElements) {
+            if (ptr.getValue().equals(element)) {
+                index = counter;
+            }
+            ptr = ptr.getNext();
+            counter++;
         }
-        return numElements - 1;
+
+        return index;
     }
 
     /**
      * Calls back to remove(int index)
      * ^ for overall simplicity
      *
-     * Worst Case Time Complexity: Quadratic - O(n^2)
+     * Worst Case Time Complexity: Linear - 3 O(n)
      * ^ (get() inside of remove(int index) can be performed twice, leading to the same linear process being performed twice.
      *
      * @param element ObjectInList, ObjectNotInList, null
@@ -249,7 +261,7 @@ public class SingleLinkedList implements ListInterface {
      * Sequentially deduces where item is in the list
      * Then sets the previous node to the node after the node that is being removed
      *
-     * Worst Case Time Complexity: Quadratic - O(n^2)
+     * Worst Case Time Complexity: Linear - 3 O(n)
      * ^ (get() inside of remove(int index) can be performed twice, leading to the same linear process being performed twice.
      *
      * @param index objectInList, objectNotInList, (index > numElements - 1), (index < 0)
@@ -304,7 +316,8 @@ public class SingleLinkedList implements ListInterface {
      */
     @Override
     public Object set(int index, Object element) {
-        if (index > numElements - 1 || index < 0) throw new IndexOutOfBoundsException("Cannot insert at index " + index + ", Out Of Bounds.");
+        if (index > numElements - 1 || index < 0)
+            throw new IndexOutOfBoundsException("Cannot insert at index " + index + ", Out Of Bounds.");
         if (element == null) throw new IllegalArgumentException("Cannot manually set a null node");
 
         // Get the node, set its value to element.
