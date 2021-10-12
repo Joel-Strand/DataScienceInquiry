@@ -1,4 +1,0 @@
-#BlueJ class context
-comment0.target=MyStack
-comment0.text=\n\ class\ MyStack\ realizes\ the\ List\ interface\n\ but\ only\ implements\ methods\ that\ allow\n\ stack\ like\ behavior\n\ \n\ A\ stack\ only\ allows\ elements\ to\ be\ added\ at\ the\ top\n\ A\ stack\ only\ allows\ the\ current\ top\ element\ to\ be\ removed\n\ \n\ Add\ a\ constructor\ that\ creates\ an\ empty\ stack.\n\ Add\ a\ toString\ that\ displays\ the\ elements\ with\ the\ \n\ top\ element\ first.\n\ \n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
-numComments=1
